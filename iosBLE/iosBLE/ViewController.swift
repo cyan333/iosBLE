@@ -102,27 +102,37 @@ class ViewController: UIViewController,
     //setup notification
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
-            var parameter = NSInteger(1)
-            let data = NSData(bytes: &parameter, length: 1) as Data
+//            var parameter = NSInteger(1)
+//            let data = NSData(bytes: &parameter, length: 1) as Data
             
             let thisCharacteristic = characteristic as CBCharacteristic
             print(thisCharacteristic.uuid)
             if thisCharacteristic.uuid == BEAN_CHARACTERISTIC_UUID {
+                //Set notification
                 self.peripheral.setNotifyValue(true, for: thisCharacteristic)
-                print("send 1")
-                peripheral.writeValue(data, for: characteristic, type: .withResponse)
+                
+                //Write Value
+//                print("send 1")
+//                peripheral.writeValue(data, for: characteristic, type: .withResponse)
             }
         }
     }
     
     //Receive changes
-//    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
 //        var count:UInt32 = 0;
-//
-//        if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
-//
-//        }
-//    }
+        let data = characteristic.value
+        
+        var values = [UInt8](data!)
+
+        
+        if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
+            //String
+//            print(String(data:data!, encoding: .utf8) ?? "null")
+            //Integer
+            print(values[0])
+        }
+    }
     
     //Disconnect and try again
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {

@@ -33,6 +33,7 @@ class ViewController: UIViewController,
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         manager = CBCentralManager(delegate: self, queue: nil)
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,29 +102,33 @@ class ViewController: UIViewController,
     //setup notification
     func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
         for characteristic in service.characteristics! {
+            var parameter = NSInteger(1)
+            let data = NSData(bytes: &parameter, length: 1) as Data
+            
             let thisCharacteristic = characteristic as CBCharacteristic
             print(thisCharacteristic.uuid)
             if thisCharacteristic.uuid == BEAN_CHARACTERISTIC_UUID {
                 self.peripheral.setNotifyValue(true, for: thisCharacteristic)
+                print("send 1")
+                peripheral.writeValue(data, for: characteristic, type: .withResponse)
             }
         }
     }
     
     //Receive changes
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        var count:UInt32 = 0;
-        
-        if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
-//            characteristic.value!.getBytes(&count, length: sizeof(UInt32))
-//            labelCount.text =
-//                NSString(format: "%llu", count) as String
-        }
-    }
+//    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+//        var count:UInt32 = 0;
+//
+//        if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
+//
+//        }
+//    }
     
     //Disconnect and try again
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
         central.scanForPeripherals(withServices: nil, options: nil)
     }
+    
 
 }
 

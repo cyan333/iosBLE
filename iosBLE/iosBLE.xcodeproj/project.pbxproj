@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2353873FE39DE92863B0C1AF /* Pods_iosBLE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19D0F16B956AD4B3821C9AF6 /* Pods_iosBLE.framework */; };
 		91DE6A77200C517500B17EC6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DE6A76200C517500B17EC6 /* AppDelegate.swift */; };
 		91DE6A79200C517500B17EC6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DE6A78200C517500B17EC6 /* ViewController.swift */; };
 		91DE6A7C200C517500B17EC6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91DE6A7A200C517500B17EC6 /* Main.storyboard */; };
@@ -15,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0697F26B8D03B40CABE96108 /* Pods-iosBLE.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosBLE.release.xcconfig"; path = "Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE.release.xcconfig"; sourceTree = "<group>"; };
+		19D0F16B956AD4B3821C9AF6 /* Pods_iosBLE.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iosBLE.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91DE6A73200C517500B17EC6 /* iosBLE.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosBLE.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91DE6A76200C517500B17EC6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		91DE6A78200C517500B17EC6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -22,6 +25,7 @@
 		91DE6A7D200C517500B17EC6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91DE6A80200C517500B17EC6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91DE6A82200C517500B17EC6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		96C0C812EF3902AE9F6F0DFB /* Pods-iosBLE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosBLE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +33,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2353873FE39DE92863B0C1AF /* Pods_iosBLE.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1F72139A3A063706445291B9 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				96C0C812EF3902AE9F6F0DFB /* Pods-iosBLE.debug.xcconfig */,
+				0697F26B8D03B40CABE96108 /* Pods-iosBLE.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		91DE6A6A200C517500B17EC6 = {
 			isa = PBXGroup;
 			children = (
 				91DE6A75200C517500B17EC6 /* iosBLE */,
 				91DE6A74200C517500B17EC6 /* Products */,
+				1F72139A3A063706445291B9 /* Pods */,
+				FB7B6607074E02F0DB80772E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +80,14 @@
 			path = iosBLE;
 			sourceTree = "<group>";
 		};
+		FB7B6607074E02F0DB80772E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				19D0F16B956AD4B3821C9AF6 /* Pods_iosBLE.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -71,9 +95,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91DE6A85200C517500B17EC6 /* Build configuration list for PBXNativeTarget "iosBLE" */;
 			buildPhases = (
+				43D3411869D89C0D55FF1F53 /* [CP] Check Pods Manifest.lock */,
 				91DE6A6F200C517500B17EC6 /* Sources */,
 				91DE6A70200C517500B17EC6 /* Frameworks */,
 				91DE6A71200C517500B17EC6 /* Resources */,
+				4524587790F78D237680BFFC /* [CP] Embed Pods Frameworks */,
+				E40A02F3C7E26FC6F88D5FFF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -135,6 +162,60 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		43D3411869D89C0D55FF1F53 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-iosBLE-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4524587790F78D237680BFFC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E40A02F3C7E26FC6F88D5FFF /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		91DE6A6F200C517500B17EC6 /* Sources */ = {
@@ -277,6 +358,7 @@
 		};
 		91DE6A86200C517500B17EC6 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 96C0C812EF3902AE9F6F0DFB /* Pods-iosBLE.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -292,6 +374,7 @@
 		};
 		91DE6A87200C517500B17EC6 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 0697F26B8D03B40CABE96108 /* Pods-iosBLE.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;

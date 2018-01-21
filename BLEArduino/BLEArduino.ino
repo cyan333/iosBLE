@@ -1,10 +1,5 @@
 //#include <SoftwareSerial.h>
-//
-//const byte rxPin = 2;
-//const byte txPin = 3;
-//
-//
-//SoftwareSerial mySerial(rxPin, txPin);
+
 
 void setup()
 {
@@ -14,11 +9,11 @@ void setup()
 void loop()
 {
 //  Serial.print("Hello World");
-  Serial.write(1);
+  Serial.write("ECG100");
 
   delay(1000);
 
-  Serial.write(0);
+  Serial.write("ECG200");
 
   delay(1000);
 }

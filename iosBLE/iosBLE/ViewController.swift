@@ -11,12 +11,31 @@ import Charts
 import CoreBluetooth
 
 class ViewController: UIViewController,
-    CBCentralManagerDelegate,
-CBPeripheralDelegate{
+                        CBCentralManagerDelegate,
+                        CBPeripheralDelegate{
     
 
     @IBOutlet var lineChartView_ECG: LineChartView!
     @IBOutlet var lineChartView_PPG: LineChartView!
+    
+    @IBAction func saveButton_ECG(_ sender: UIButton) {
+        print("ECG pressed")
+        sender.setTitle("Saving", for: .normal)
+        let image = lineChartView_ECG.getChartImage(transparent: false)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        sender.setTitle("Save", for: .normal)
+    }
+    
+    
+    @IBAction func saveButton_PPG(_ sender: UIButton) {
+        print("PPG pressed")
+        sender.setTitle("Saving", for: .normal)
+        let image = lineChartView_PPG.getChartImage(transparent: false)
+        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+        sender.setTitle("Save", for: .normal)
+    }
+    
+    
     
     //Line Chart Variables
     var lineChartEntry_ECG  = [ChartDataEntry]()
@@ -46,6 +65,7 @@ CBPeripheralDelegate{
         
         //For ECG Data
         if identifier == 1 {
+            //Limit data points in a graph
             if lineChartEntry_ECG.count == 5 {
                 lineChartEntry_ECG.remove(at: 0)
                 lineChartEntry_ECG.append(value)
@@ -55,25 +75,47 @@ CBPeripheralDelegate{
             }
             
             let line1 = LineChartDataSet(values: lineChartEntry_ECG, label: "Number")
-            line1.colors = ChartColorTemplates.colorful()
+            line1.colors = [UIColor(red: 11/255, green: 144/255, blue: 137/255, alpha: 1)]
             line1.drawCirclesEnabled = false
+            line1.lineWidth = 3
+
             let data = LineChartData() //This is the object that will be added to the chart
             data.addDataSet(line1) //Adds the line to the dataSet
-            lineChartView_ECG.data = data
+            data.setDrawValues(false)
             
+            lineChartView_ECG.data = data
+            lineChartView_ECG.xAxis.labelPosition = .bottom
+            lineChartView_ECG.xAxis.drawGridLinesEnabled = false
+            lineChartView_ECG.rightAxis.enabled = false
+            lineChartView_ECG.legend.enabled = false
+         
         }
         else if identifier == 2 {
-            lineChartEntry_PPG.append(value)
+            if lineChartEntry_PPG.count == 5 {
+                lineChartEntry_PPG.remove(at: 0)
+                lineChartEntry_PPG.append(value)
+            }
+            else {
+                lineChartEntry_PPG.append(value)
+            }
+            
             let line2 = LineChartDataSet(values: lineChartEntry_PPG, label: "Number")
             line2.colors = [NSUIColor.blue] //Sets the colour to blue
+            line2.drawCirclesEnabled = false
+            
             let data = LineChartData() //This is the object that will be added to the chart
             data.addDataSet(line2) //Adds the line to the dataSet
+            data.setDrawValues(false)
+            
             lineChartView_PPG.data = data
+            lineChartView_PPG.xAxis.labelPosition = .bottom
             
         }
-        
     }
     
+    /////////////////////////
+    ///////BLE Functions/////
+    /////////////////////////
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         manager = CBCentralManager(delegate: self, queue: nil)

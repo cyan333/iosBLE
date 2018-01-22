@@ -14,6 +14,15 @@ class ViewController: UIViewController,
     CBCentralManagerDelegate,
 CBPeripheralDelegate{
     
+
+    @IBOutlet var lineChartView_ECG: LineChartView!
+    @IBOutlet var lineChartView_PPG: LineChartView!
+    
+    //Line Chart Variables
+    var lineChartEntry_ECG  = [ChartDataEntry]()
+    var lineChartEntry_PPG  = [ChartDataEntry]()
+    var XValueData: Double = 0.0
+    
     var manager:CBCentralManager!
     var peripheral:CBPeripheral!
     
@@ -28,6 +37,40 @@ CBPeripheralDelegate{
         super.viewDidLoad()
         //Instantiate manager
         
+        
+    }
+    //identifier = 1: ECG; =2: PPG
+    func updateGraph(YValueData: Double, identifier: Int){
+        XValueData = XValueData + 100
+        let value = ChartDataEntry(x: XValueData, y: YValueData)
+        
+        //For ECG Data
+        if identifier == 1 {
+            if lineChartEntry_ECG.count == 5 {
+                lineChartEntry_ECG.remove(at: 0)
+                lineChartEntry_ECG.append(value)
+            }
+            else {
+                lineChartEntry_ECG.append(value)
+            }
+            
+            let line1 = LineChartDataSet(values: lineChartEntry_ECG, label: "Number")
+            line1.colors = ChartColorTemplates.colorful()
+            line1.drawCirclesEnabled = false
+            let data = LineChartData() //This is the object that will be added to the chart
+            data.addDataSet(line1) //Adds the line to the dataSet
+            lineChartView_ECG.data = data
+            
+        }
+        else if identifier == 2 {
+            lineChartEntry_PPG.append(value)
+            let line2 = LineChartDataSet(values: lineChartEntry_PPG, label: "Number")
+            line2.colors = [NSUIColor.blue] //Sets the colour to blue
+            let data = LineChartData() //This is the object that will be added to the chart
+            data.addDataSet(line2) //Adds the line to the dataSet
+            lineChartView_PPG.data = data
+            
+        }
         
     }
     
@@ -124,14 +167,29 @@ CBPeripheralDelegate{
         //        var count:UInt32 = 0;
         let data = characteristic.value
         
-        var values = [UInt8](data!)
-        
+        //var values = [UInt8](data!)
+        let BLEValueString: String = String(data:data!, encoding: .utf8)!
+        var BLEValueDouble: Double = 0.0
         
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
+            print(BLEValueString)
+            if BLEValueString.hasPrefix("ECG"){
+                //Convert String to Double as update graph needed
+                BLEValueDouble = (BLEValueString.replacingOccurrences(of: "ECG", with: "") as NSString).doubleValue
+                //Update Value
+                updateGraph(YValueData: BLEValueDouble, identifier: 1)
+            }
+            else if BLEValueString.hasPrefix("PPG"){
+                //Convert String to Double as update graph needed
+                BLEValueDouble = (BLEValueString.replacingOccurrences(of: "PPG", with: "") as NSString).doubleValue
+                //Update Value
+                updateGraph(YValueData: BLEValueDouble, identifier: 2)
+            }
+            
             //String
-            //            print(String(data:data!, encoding: .utf8) ?? "null")
+            //print(String(data:data!, encoding: .utf8) ?? "null")
             //Integer
-            print(values[0])
+            //print(values[0])
         }
     }
     

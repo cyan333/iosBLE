@@ -35,7 +35,9 @@ class ViewController: UIViewController,
         sender.setTitle("Save", for: .normal)
     }
     
-    
+    //Identifier Flags
+    var readyToRecord = false
+    var isPPG = false //true - PPG; False - ECG
     
     //Line Chart Variables
     var lineChartEntry_ECG  = [ChartDataEntry]()
@@ -216,16 +218,19 @@ class ViewController: UIViewController,
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
             print(BLEValueString)
             if BLEValueString.hasPrefix("ECG"){
-                //Convert String to Double as update graph needed
-                BLEValueDouble = (BLEValueString.replacingOccurrences(of: "ECG", with: "") as NSString).doubleValue
-                //Update Value
-                updateGraph(YValueData: BLEValueDouble, identifier: 1)
+                isPPG = false
+                readyToRecord = true
             }
             else if BLEValueString.hasPrefix("PPG"){
-                //Convert String to Double as update graph needed
-                BLEValueDouble = (BLEValueString.replacingOccurrences(of: "PPG", with: "") as NSString).doubleValue
+                isPPG = true
+                readyToRecord = true
+            }
+            else if !isPPG && readyToRecord {
+                updateGraph(YValueData: Double(BLEValueString)!, identifier: 1)
+            }
+            else if isPPG && readyToRecord {
                 //Update Value
-                updateGraph(YValueData: BLEValueDouble, identifier: 2)
+                updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
             }
             
             //String

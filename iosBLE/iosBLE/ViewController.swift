@@ -62,13 +62,13 @@ class ViewController: UIViewController,
     }
     //identifier = 1: ECG; =2: PPG
     func updateGraph(YValueData: Double, identifier: Int){
-        XValueData = XValueData + 100
+        XValueData = XValueData + 1
         let value = ChartDataEntry(x: XValueData, y: YValueData)
         
         //For ECG Data
         if identifier == 1 {
             //Limit data points in a graph
-            if lineChartEntry_ECG.count == 5 {
+            if lineChartEntry_ECG.count == 20 {
                 lineChartEntry_ECG.remove(at: 0)
                 lineChartEntry_ECG.append(value)
             }
@@ -93,7 +93,7 @@ class ViewController: UIViewController,
          
         }
         else if identifier == 2 {
-            if lineChartEntry_PPG.count == 5 {
+            if lineChartEntry_PPG.count == 20 {
                 lineChartEntry_PPG.remove(at: 0)
                 lineChartEntry_PPG.append(value)
             }
@@ -213,7 +213,7 @@ class ViewController: UIViewController,
         
         //var values = [UInt8](data!)
         let BLEValueString: String = String(data:data!, encoding: .utf8)!
-        var BLEValueDouble: Double = 0.0
+//        var BLEValueDouble: Double = 0.0
         
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
             print(BLEValueString)

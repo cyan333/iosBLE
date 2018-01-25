@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="ipad10_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,80 +15,80 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="iosBLE" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="834" height="1112"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xeq-wa-4fr" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="437" width="375" height="230"/>
+                                <rect key="frame" x="0.0" y="882" width="834" height="230"/>
                                 <color key="backgroundColor" red="0.092870645225048065" green="0.43955415487289429" blue="0.46570438146591187" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="cwq-3h-qxX"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ECG Real Time Signal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I72-19-do5">
-                                <rect key="frame" x="105" y="35" width="165" height="21"/>
+                                <rect key="frame" x="334.5" y="35" width="165" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PPG Real Time Signal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5i-jz-mX6">
-                                <rect key="frame" x="105.5" y="411" width="164" height="21"/>
+                                <rect key="frame" x="335" y="856" width="164" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bam-vL-3LR" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="0.0" y="61" width="375" height="230"/>
+                                <rect key="frame" x="0.0" y="61" width="834" height="230"/>
                                 <color key="backgroundColor" red="0.0" green="0.67362743616104126" blue="0.94819802045822144" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="230" id="TfP-wq-Zgr"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9i1-U2-T3P">
-                                <rect key="frame" x="326" y="30" width="34" height="30"/>
+                                <rect key="frame" x="555.5" y="30" width="263.5" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButton_ECG:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ocg-TT-TFC"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iDB-x7-8eH">
-                                <rect key="frame" x="326" y="406" width="34" height="30"/>
+                                <rect key="frame" x="555.5" y="851" width="263.5" height="30"/>
                                 <state key="normal" title="Save"/>
                                 <connections>
                                     <action selector="saveButton_PPG:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0zF-qM-Pin"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Heartbeat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iF9-Se-opa">
-                                <rect key="frame" x="148.5" y="323" width="78" height="21"/>
+                                <rect key="frame" x="378" y="545.5" width="78" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temperature" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHI-qq-wkI">
-                                <rect key="frame" x="20.5" y="323" width="98" height="21"/>
+                                <rect key="frame" x="250" y="545.5" width="98" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oxygen Level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fXI-Ke-G9F">
-                                <rect key="frame" x="256.5" y="323" width="103" height="21"/>
+                                <rect key="frame" x="486" y="545.5" width="103" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ML-hX-GYr">
-                                <rect key="frame" x="158.5" y="342" width="58" height="57.5"/>
+                                <rect key="frame" x="388" y="564.5" width="58" height="57.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qg4-Sa-rE4">
-                                <rect key="frame" x="40.5" y="342" width="58" height="57.5"/>
+                                <rect key="frame" x="270" y="564.5" width="58" height="57.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="48" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uvl-q9-2cZ">
-                                <rect key="frame" x="278.5" y="342" width="59" height="57.5"/>
+                                <rect key="frame" x="508" y="564.5" width="59" height="57.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="48"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>

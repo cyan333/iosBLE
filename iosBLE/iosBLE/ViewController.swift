@@ -14,7 +14,10 @@ class ViewController: UIViewController,
                         CBCentralManagerDelegate,
                         CBPeripheralDelegate{
     
-
+    @IBOutlet var oxgTxt: UILabel!
+    @IBOutlet var hrbTxt: UILabel!
+    @IBOutlet var tempTxt: UILabel!
+    
     @IBOutlet var lineChartView_ECG: LineChartView!
     @IBOutlet var lineChartView_PPG: LineChartView!
     
@@ -35,9 +38,13 @@ class ViewController: UIViewController,
         sender.setTitle("Save", for: .normal)
     }
     
+    var currentState = CurrentState.Waiting
+    
     //Identifier Flags
     var readyToRecord = false
     var isPPG = false //true - PPG; False - ECG
+    var isHRB = false //true - heartbeat data
+    var isOXG = false // true - oxygen level data
     
     //Line Chart Variables
     var lineChartEntry_ECG  = [ChartDataEntry]()
@@ -68,7 +75,7 @@ class ViewController: UIViewController,
         //For ECG Data
         if identifier == 1 {
             //Limit data points in a graph
-            if lineChartEntry_ECG.count == 20 {
+            if lineChartEntry_ECG.count == 500 {
                 lineChartEntry_ECG.remove(at: 0)
                 lineChartEntry_ECG.append(value)
             }
@@ -93,7 +100,7 @@ class ViewController: UIViewController,
          
         }
         else if identifier == 2 {
-            if lineChartEntry_PPG.count == 20 {
+            if lineChartEntry_PPG.count == 100 {
                 lineChartEntry_PPG.remove(at: 0)
                 lineChartEntry_PPG.append(value)
             }
@@ -178,7 +185,7 @@ class ViewController: UIViewController,
     
     //Get Characteristics
     func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        for service in peripheral.services!{
+        for service in peripheral.services!{  
             let thisService = service as CBService
             print(service.uuid)
             if service.uuid == BEAN_SERVICE_UUID{
@@ -210,28 +217,80 @@ class ViewController: UIViewController,
     func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
         //        var count:UInt32 = 0;
         let data = characteristic.value
-        
         //var values = [UInt8](data!)
         let BLEValueString: String = String(data:data!, encoding: .utf8)!
-//        var BLEValueDouble: Double = 0.0
+        //var BLEValueDouble: Double = 0.0
         
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
             print(BLEValueString)
+            
             if BLEValueString.hasPrefix("ECG"){
-                isPPG = false
-                readyToRecord = true
+                currentState = .ECG
+                return
             }
-            else if BLEValueString.hasPrefix("PPG"){
-                isPPG = true
-                readyToRecord = true
+            else if BLEValueString.hasPrefix("PPGRED"){
+                currentState = .PPGRED
+                return
             }
-            else if !isPPG && readyToRecord {
+            else if BLEValueString.hasPrefix("HRB"){
+                currentState = .HRB
+                return
+            }
+            else if BLEValueString.hasPrefix("OXG"){
+                currentState = .OXG
+                return
+            }
+            else if BLEValueString.hasPrefix("TEMP"){
+                currentState = .TEMP
+                return
+            }
+            else {
+                if (currentState == .Waiting) {
+                    return
+                }
+            }
+            
+            switch (currentState){
+            case .Waiting:
+                print("error")
+            case .ECG:
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 1)
-            }
-            else if isPPG && readyToRecord {
-                //Update Value
+            case .PPGRED:
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
+            case .PPGIR:
+                print("error")
+            case .HRB:
+                hrbTxt.text = BLEValueString
+            case .OXG:
+                print("error")
+            case .TEMP:
+                print("error")
             }
+            
+//
+//
+//            if BLEValueString.hasPrefix("ECG"){
+//                isPPG = false
+//                readyToRecord = true
+//            }
+//            else if BLEValueString.hasPrefix("PPGRED"){
+//                isPPG = true
+//                readyToRecord = true
+//            }
+//            else if BLEValueString.hasPrefix("HRB"){
+//                hrbTxt.text = BLEValueString
+//            }
+//            else if !isPPG && readyToRecord {
+//                updateGraph(YValueData: Double(BLEValueString)!, identifier: 1)
+//            }
+//            else if isPPG && readyToRecord {
+//                //Update Value
+//                updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
+//            }
+//            else if isHRB {
+//
+//            }
+            
             
             //String
             //print(String(data:data!, encoding: .utf8) ?? "null")
@@ -249,9 +308,15 @@ class ViewController: UIViewController,
 }
 
 
-
-
-
+enum CurrentState {
+    case Waiting
+    case ECG
+    case PPGRED
+    case PPGIR
+    case HRB
+    case OXG
+    case TEMP
+}
 
 
 

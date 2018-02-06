@@ -1,32 +1,41 @@
-//#include <SoftwareSerial.h>
-
+#include <SoftwareSerial.h>
+SoftwareSerial BTserial(2, 3);
 
 void setup()
 {
   Serial.begin(9600);
+  BTserial.begin(9600);
 }
 
 void loop()
 {
 
-  Serial.write("ECG");
+  BTserial.print("ECG");
   delay(1000);
-  Serial.write("100");
+  BTserial.print("100");
   delay(1000);
-  Serial.write("200");
+  BTserial.print("200");
   delay(1000);
-  Serial.write("500");
+  BTserial.print("500");
   delay(1000);
-  Serial.write("300");
+  BTserial.print("300");
   delay(1000);
-  Serial.write("100");
+  BTserial.print("100");
   delay(1000);
-  Serial.write("PPG");
+  BTserial.print("PPGRED");
   delay(1000);
-  Serial.write("1000");
+  BTserial.print("1020");
   delay(1000);
-  Serial.write("1500");
+  BTserial.print("2020");
   delay(1000);
-  Serial.write("4000");
+  BTserial.print("5100");
+  delay(1000);
+  BTserial.print("3100");
+  delay(1000);
+  BTserial.print("1040");
+  delay(1000);
+  BTserial.print("HRB");
+  delay(1000);
+  BTserial.print("100");
   delay(1000);
 }

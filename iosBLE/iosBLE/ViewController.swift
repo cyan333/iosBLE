@@ -48,7 +48,8 @@ class ViewController: UIViewController,
     
     //Line Chart Variables
     var lineChartEntry_ECG  = [ChartDataEntry]()
-    var lineChartEntry_PPG  = [ChartDataEntry]()
+    var lineChartEntry_PPGRED  = [ChartDataEntry]()
+    var lineChartEntry_PPGIR  = [ChartDataEntry]()
     var XValueData: Double = 0.0
     
     var manager:CBCentralManager!
@@ -83,13 +84,13 @@ class ViewController: UIViewController,
                 lineChartEntry_ECG.append(value)
             }
             
-            let line1 = LineChartDataSet(values: lineChartEntry_ECG, label: "Number")
-            line1.colors = [UIColor(red: 11/255, green: 144/255, blue: 137/255, alpha: 1)]
-            line1.drawCirclesEnabled = false
-            line1.lineWidth = 3
+            let lineECG = LineChartDataSet(values: lineChartEntry_ECG, label: "Number")
+            lineECG.colors = [UIColor(red: 11/255, green: 144/255, blue: 137/255, alpha: 1)]
+            lineECG.drawCirclesEnabled = false
+            lineECG.lineWidth = 3
 
             let data = LineChartData() //This is the object that will be added to the chart
-            data.addDataSet(line1) //Adds the line to the dataSet
+            data.addDataSet(lineECG) //Adds the line to the dataSet
             data.setDrawValues(false)
             
             lineChartView_ECG.data = data
@@ -99,21 +100,41 @@ class ViewController: UIViewController,
             lineChartView_ECG.legend.enabled = false
          
         }
-        else if identifier == 2 {
-            if lineChartEntry_PPG.count == 100 {
-                lineChartEntry_PPG.remove(at: 0)
-                lineChartEntry_PPG.append(value)
+        else if identifier == 2 || identifier == 3{
+            if identifier == 2 {
+                if lineChartEntry_PPGRED.count == 100 {
+                    lineChartEntry_PPGRED.remove(at: 0)
+                    lineChartEntry_PPGRED.append(value)
+                }
+                else {
+                    lineChartEntry_PPGRED.append(value)
+                }
             }
-            else {
-                lineChartEntry_PPG.append(value)
+            else if identifier == 3 {
+                if lineChartEntry_PPGIR.count == 100 {
+                    lineChartEntry_PPGIR.remove(at: 0)
+                    lineChartEntry_PPGIR.append(value)
+                }
+                else {
+                    lineChartEntry_PPGIR.append(value)
+                }
             }
             
-            let line2 = LineChartDataSet(values: lineChartEntry_PPG, label: "Number")
-            line2.colors = [NSUIColor.blue] //Sets the colour to blue
-            line2.drawCirclesEnabled = false
+            let linePPGRED = LineChartDataSet(values: lineChartEntry_PPGRED, label: "PPG RED")
+            linePPGRED.colors = [NSUIColor.blue] //Sets the colour to blue
+            linePPGRED.drawCirclesEnabled = false
+            
+            let linePPGIR = LineChartDataSet(values: lineChartEntry_PPGIR, label: "PPG IR")
+            linePPGRED.colors = [NSUIColor.red] //Sets the colour to blue
+            linePPGRED.drawCirclesEnabled = false
+            
+            var dataSets = [LineChartDataSet]()
+            dataSets.append(linePPGRED)
+            dataSets.append(linePPGIR)
             
             let data = LineChartData() //This is the object that will be added to the chart
-            data.addDataSet(line2) //Adds the line to the dataSet
+            data.addDataSet(linePPGRED) //Adds the line to the dataSet
+            data.addDataSet(linePPGIR) //Adds the line to the dataSet
             data.setDrawValues(false)
             
             lineChartView_PPG.data = data
@@ -232,6 +253,10 @@ class ViewController: UIViewController,
                 currentState = .PPGRED
                 return
             }
+            else if BLEValueString.hasPrefix("PPGIR"){
+                currentState = .PPGIR
+                return
+            }
             else if BLEValueString.hasPrefix("HRB"){
                 currentState = .HRB
                 return
@@ -258,13 +283,13 @@ class ViewController: UIViewController,
             case .PPGRED:
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
             case .PPGIR:
-                print("error")
+                updateGraph(YValueData: Double(BLEValueString)!, identifier: 3)
             case .HRB:
                 hrbTxt.text = BLEValueString
             case .OXG:
-                print("error")
+                oxgTxt.text = BLEValueString
             case .TEMP:
-                print("error")
+                tempTxt.text = BLEValueString
             }
             
 //

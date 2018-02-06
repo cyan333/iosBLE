@@ -34,8 +34,28 @@ void loop()
   delay(1000);
   BTserial.print("1040");
   delay(1000);
+  BTserial.print("PPGIR");
+  delay(1000);
+  BTserial.print("2020");
+  delay(1000);
+  BTserial.print("1020");
+  delay(1000);
+  BTserial.print("900");
+  delay(1000);
+  BTserial.print("2100");
+  delay(1000);
+  BTserial.print("4040");
+  delay(1000);
   BTserial.print("HRB");
   delay(1000);
   BTserial.print("100");
+  delay(1000);
+  BTserial.print("OXG");
+  delay(1000);
+  BTserial.print("13");
+  delay(1000);
+  BTserial.print("TEMP");
+  delay(1000);
+  BTserial.print("25");
   delay(1000);
 }

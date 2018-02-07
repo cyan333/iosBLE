@@ -102,7 +102,7 @@ class ViewController: UIViewController,
         }
         else if identifier == 2 || identifier == 3{
             if identifier == 2 {
-                if lineChartEntry_PPGRED.count == 100 {
+                if lineChartEntry_PPGRED.count == 40 {
                     lineChartEntry_PPGRED.remove(at: 0)
                     lineChartEntry_PPGRED.append(value)
                 }
@@ -111,7 +111,7 @@ class ViewController: UIViewController,
                 }
             }
             else if identifier == 3 {
-                if lineChartEntry_PPGIR.count == 100 {
+                if lineChartEntry_PPGIR.count == 40 {
                     lineChartEntry_PPGIR.remove(at: 0)
                     lineChartEntry_PPGIR.append(value)
                 }
@@ -244,7 +244,6 @@ class ViewController: UIViewController,
         
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
             print(BLEValueString)
-            
             if BLEValueString.hasPrefix("ECG"){
                 currentState = .ECG
                 return
@@ -254,7 +253,7 @@ class ViewController: UIViewController,
                 return
             }
             else if BLEValueString.hasPrefix("PPGIR"){
-                currentState = .PPGIR
+                print("ssssfsdagadfgasdgafd")
                 return
             }
             else if BLEValueString.hasPrefix("HRB"){

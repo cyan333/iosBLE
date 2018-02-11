@@ -17,6 +17,7 @@ class ViewController: UIViewController,
     @IBOutlet var oxgTxt: UILabel!
     @IBOutlet var hrbTxt: UILabel!
     @IBOutlet var tempTxt: UILabel!
+    @IBOutlet var ecgHRBTxt: UILabel!
     
     @IBOutlet var lineChartView_ECG: LineChartView!
     @IBOutlet var lineChartView_PPG: LineChartView!
@@ -102,7 +103,7 @@ class ViewController: UIViewController,
         }
         else if identifier == 2 || identifier == 3{
             if identifier == 2 {
-                if lineChartEntry_PPGRED.count == 40 {
+                if lineChartEntry_PPGRED.count == 20 {
                     lineChartEntry_PPGRED.remove(at: 0)
                     lineChartEntry_PPGRED.append(value)
                 }
@@ -111,7 +112,7 @@ class ViewController: UIViewController,
                 }
             }
             else if identifier == 3 {
-                if lineChartEntry_PPGIR.count == 40 {
+                if lineChartEntry_PPGIR.count == 20 {
                     lineChartEntry_PPGIR.remove(at: 0)
                     lineChartEntry_PPGIR.append(value)
                 }
@@ -253,7 +254,7 @@ class ViewController: UIViewController,
                 return
             }
             else if BLEValueString.hasPrefix("PPGIR"){
-                print("ssssfsdagadfgasdgafd")
+//                currentState = .PPGIR
                 return
             }
             else if BLEValueString.hasPrefix("HRB"){
@@ -266,6 +267,10 @@ class ViewController: UIViewController,
             }
             else if BLEValueString.hasPrefix("TEMP"){
                 currentState = .TEMP
+                return
+            }
+            else if BLEValueString.hasPrefix("EHRB"){
+                currentState = .ECGHRB
                 return
             }
             else {
@@ -289,6 +294,8 @@ class ViewController: UIViewController,
                 oxgTxt.text = BLEValueString
             case .TEMP:
                 tempTxt.text = BLEValueString
+            case .ECGHRB:
+                ecgHRBTxt.text = BLEValueString
             }
             
 //
@@ -340,6 +347,7 @@ enum CurrentState {
     case HRB
     case OXG
     case TEMP
+    case ECGHRB
 }
 
 

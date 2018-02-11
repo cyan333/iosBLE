@@ -13,6 +13,7 @@
 		91170D0720154EC20037295D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0520154EC20037295D /* Main.storyboard */; };
 		91170D0920154EC20037295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0820154EC20037295D /* Assets.xcassets */; };
 		91170D0C20154EC20037295D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0A20154EC20037295D /* LaunchScreen.storyboard */; };
+		914C7D84202BA1E600FBC3AC /* ppgAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,9 @@
 		91170D0820154EC20037295D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		91170D0B20154EC20037295D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91170D0D20154EC20037295D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		914C7D81202BA1E600FBC3AC /* iosBLE-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosBLE-Bridging-Header.h"; sourceTree = "<group>"; };
+		914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppgAlgorithm.cpp; sourceTree = "<group>"; };
+		914C7D83202BA1E600FBC3AC /* ppgAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ppgAlgorithm.hpp; sourceTree = "<group>"; };
 		EB65BE6659B741D815CEFF72 /* Pods-iosBLE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosBLE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -81,9 +85,12 @@
 				91170D0120154EC20037295D /* AppDelegate.swift */,
 				91170D0320154EC20037295D /* ViewController.swift */,
 				91170D0520154EC20037295D /* Main.storyboard */,
+				914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */,
+				914C7D83202BA1E600FBC3AC /* ppgAlgorithm.hpp */,
 				91170D0820154EC20037295D /* Assets.xcassets */,
 				91170D0A20154EC20037295D /* LaunchScreen.storyboard */,
 				91170D0D20154EC20037295D /* Info.plist */,
+				914C7D81202BA1E600FBC3AC /* iosBLE-Bridging-Header.h */,
 			);
 			path = iosBLE;
 			sourceTree = "<group>";
@@ -123,6 +130,7 @@
 				TargetAttributes = {
 					91170CFD20154EC20037295D = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -217,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				914C7D84202BA1E600FBC3AC /* ppgAlgorithm.cpp in Sources */,
 				91170D0420154EC20037295D /* ViewController.swift in Sources */,
 				91170D0220154EC20037295D /* AppDelegate.swift in Sources */,
 			);
@@ -356,12 +365,15 @@
 			baseConfigurationReference = EB65BE6659B741D815CEFF72 /* Pods-iosBLE.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VGNSQ2U5BW;
 				INFOPLIST_FILE = iosBLE/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fmning.iosBLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iosBLE/iosBLE-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -372,12 +384,14 @@
 			baseConfigurationReference = 30596BD96969A23000F6DC1B /* Pods-iosBLE.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VGNSQ2U5BW;
 				INFOPLIST_FILE = iosBLE/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.fmning.iosBLE;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "iosBLE/iosBLE-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

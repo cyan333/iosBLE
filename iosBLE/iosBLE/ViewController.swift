@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 import CoreBluetooth
+ 
 
 class ViewController: UIViewController,
                         CBCentralManagerDelegate,
@@ -41,6 +42,21 @@ class ViewController: UIViewController,
     
     var currentState = CurrentState.Waiting
     
+    var ppgRedBuffer = [String]()
+    var ppgIrBuffer =  [String]()
+//    var tempBuffer : [Int32] = [-3734,-3577,-3505,-3458,-3354,-3347,-4012,-4978,-5414,-5311,-5080,-4891,-4691,-4638,-4676,-4662,-4505,-4270,-4059,-3867,-3703,-3616,-3545,-3439,-3370,-3466,-4395,-5321,-5537,-5349,-5166,-5017,-3427,-3341,-3258,-3199,-3155,-3143,-3112,-3095,-3073,-3332,-3955,-4105,-3863,-3642,-3507,-3408,-3400,-3395,-3349,-3292,-3215,-3163,-3135,-3131,-3112,-3085,-3086,-3405,-4103,-4275,-4095,-3883,-3740,-3637,-3613,-3649,-3621,-3520,-3430,-3362,-3311,-3283,-3263,-3242,-3213,-3257,-3910,-4485,-4508,-4296,-4097,-3951,-3861,-3893,-3930,-3879,-3753,-3631,-3547,-3490,-3455,-3465,-3420,-3363,-3323,-3279,-3421,-4298]
+//
+//    var tempBufferR : [Int32] = [-16654,-16594,-16570,-16550,-16508,-16495,-16736,-17110,-17271,-17244,-17151,-17091,-17007,-16986,-17011,-17000,-16942,-16856,-16769,-16692,-16633,-16599,-16568,-16526,-16503,-16534,-16874,-17223,-17304,-17244,-17176,-17120,-17120,-17096,-17075,-17053,-17037,-17043,-17034,-17025,-17022,-17118,-17316,-17369,-17282,-17215,-17175,-17135,-17144,-17143,-17133,-17125,-17094,-17076,-17073,-17073,-17063,-17060,-17058,-17167,-17409,-17464,-17402,-17326,-17277,-17246,-17238,-17246,-17244,-17212,-17188,-17167,-17153,-17145,-17146,-17132,-17125,-17143,-17355,-17550,-17561,-17488,-17415,-17363,-17341,-17345,-17358,-17348,-17310,-17274,-17244,-17219,-17218,-17216,-17197,-17191,-17169,-17160,-17199,-17496]
+    
+    var tempBuffer : [Int32] = [-13475 ,-13389 ,-13355 ,-13354 ,-13335 ,-13326 ,-13308 ,-13286 ,-13267 ,-13250 ,-13243 ,-13292 ,-13552 ,-13741 ,-13662 ,-13499 ,-13415 ,-13354 ,-13333 ,-13330 ,-13321 ,-13321 ,-13319 ,-13307 ,-13299 ,-13294 ,-13371 ,-13755 ,-13989 ,-13941 ,-13770 ,-13621 ,-16838 ,-16878 ,-16871 ,-16841 ,-16803 ,-16773 ,-16746 ,-16730 ,-16718 ,-16701 ,-16764 ,-16929 ,-17026 ,-17019 ,-16966 ,-16917 ,-16872 ,-16879 ,-16902 ,-16915 ,-16893 ,-16846 ,-16796 ,-16780 ,-16748 ,-16740 ,-16762 ,-16949 ,-17080 ,-17097 ,-17054 ,-17003 ,-16960 ,-16929 ,-16947 ,-16964 ,-16946 ,-16913 ,-16872 ,-16844 ,-16822 ,-16805 ,-16792 ,-16824 ,-17006 ,-17142 ,-17165 ,-17121 ,-17074 ,-17032 ,-17015 ,-17021 ,-17030 ,-17022 ,-16967 ,-16927 ,-16893 ,-16864 ,-16846 ,-16839 ,-16828 ,-16919 ,-17115 ,-17217 ,-17214 ,-17163 ,-17099 ,-17052]
+
+    var tempBufferR : [Int32] = [3221 ,3436 ,3539 ,3540 ,3548 ,3613 ,3690 ,3756 ,3814 ,3866 ,3910 ,3764 ,3089 ,2566 ,2759 ,3199 ,3440 ,3610 ,3650 ,3636 ,3662 ,3699 ,3713 ,3763 ,3807 ,3821 ,3635 ,2591 ,1971 ,2103 ,2517 ,2949 ,98 ,46 ,66 ,161 ,277 ,375 ,427 ,472 ,497 ,531 ,394 ,-83 ,-359 ,-347 ,-221 ,-73 ,52 ,45 ,-35 ,-69 ,7 ,127 ,250 ,344 ,410 ,461 ,382 ,-134 ,-520 ,-582 ,-441 ,-328 ,-196 ,-130 ,-179 ,-207 ,-149 ,-47 ,72 ,171 ,242 ,297 ,326, 213 ,-326 ,-712 ,-769 ,-642 ,-514 ,-381 ,-330 ,-384 ,-415 ,-345 ,-222 ,-98 ,16 ,70 ,122 ,141 ,163 ,-92 ,-655 ,-959 ,-938 ,-773 ,-582 ,-413]
+    
+    var spo2Data: Int32 = 0
+    var spo2Valid: Int8 = 0
+    var heartrateData: Int32 = 0
+    var heartrateValid: Int8 = 0
+    
     //Identifier Flags
     var readyToRecord = false
     var isPPG = false //true - PPG; False - ECG
@@ -66,8 +82,25 @@ class ViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
         //Instantiate manager
+//        var pointerPPG = UnsafeMutablePointer<Int32>(ppgBuffer);
         
+        //Initialize Memory
+        let ppgRedPointer: UnsafeMutablePointer<Int32> = UnsafeMutablePointer(mutating: ppgRedBuffer).withMemoryRebound(to: UnsafeMutablePointer<Int32>.self, capacity: 100){
+            $0.pointee
+        }
         
+        let ppgIrPointer: UnsafeMutablePointer<Int32> = UnsafeMutablePointer(mutating: ppgRedBuffer).withMemoryRebound(to: UnsafeMutablePointer<Int32>.self, capacity: 1){
+            $0.pointee
+        }
+        
+        let uint8Pointer = UnsafeMutablePointer<UInt8>.allocate(capacity: 64)
+        uint8Pointer.initialize(to: 0, count: 64)
+
+        maxim_heart_rate_and_oxygen_saturation(&tempBuffer, Int32(tempBuffer.count), &tempBufferR, &spo2Data, &spo2Valid, &heartrateData, &heartrateValid)
+        print("spo2 valid = ", spo2Valid)
+        print(spo2Data)
+        print("heartrate valid = ", heartrateValid)
+        print(heartrateData)
     }
     //identifier = 1: ECG; =2: PPG
     func updateGraph(YValueData: Double, identifier: Int){
@@ -254,7 +287,7 @@ class ViewController: UIViewController,
                 return
             }
             else if BLEValueString.hasPrefix("PPGIR"){
-//                currentState = .PPGIR
+                currentState = .PPGIR
                 return
             }
             else if BLEValueString.hasPrefix("HRB"){
@@ -285,8 +318,25 @@ class ViewController: UIViewController,
             case .ECG:
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 1)
             case .PPGRED:
+                if ppgRedBuffer.count == 20{
+                    for element in ppgRedBuffer {
+                        print("hi", element)
+                    }
+                    ppgRedBuffer.removeAll()
+                }
+                ppgRedBuffer.append(BLEValueString)
+                
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
             case .PPGIR:
+                
+                if ppgIrBuffer.count == 20{
+                    for element in ppgIrBuffer {
+                        print("hi", element)
+                    }
+                    ppgIrBuffer.removeAll()
+                }
+                ppgIrBuffer.append(BLEValueString)
+                
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 3)
             case .HRB:
                 hrbTxt.text = BLEValueString

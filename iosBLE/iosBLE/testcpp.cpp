@@ -1,19 +1,19 @@
 //
-//  ppgAlgorithm.cpp
+//  testcpp.cpp
 //  iosBLE
 //
-//  Created by NingFangming on 2/7/18.
+//  Created by NingFangming on 2/11/18.
 //  Copyright © 2018 fangming. All rights reserved.
 //
 
-#include "ppgAlgorithm.hpp"
+#include "testcpp.hpp"
+
 //#include "algorithm.h"
 
 #if defined(ARDUINO_AVR_UNO)
 //Arduino Uno doesn't have enough SRAM to store 100 samples of IR led data and red led data in 32-bit format
 //To solve this problem, 16-bit MSB of the sampled data will be truncated.  Samples become 16-bit data.
-void maxim_heart_rate_and_oxygen_saturation(uint16_t *pun_ir_buffer, int32_t n_ir_buffer_length, uint16_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid,
-                                            int32_t *pn_heart_rate, int8_t *pch_hr_valid)
+void maxim_heart_rate_and_oxygen_saturation(uint16_t *pun_ir_buffer, int32_t n_ir_buffer_length, uint16_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid,int32_t *pn_heart_rate, int8_t *pch_hr_valid)
 #else
 void maxim_heart_rate_and_oxygen_saturation(int32_t *pun_ir_buffer, int32_t n_ir_buffer_length, int32_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid,int32_t *pn_heart_rate, int8_t *pch_hr_valid)
 #endif
@@ -262,6 +262,7 @@ void maxim_sort_indices_descend(  int32_t  *pn_x, int32_t *pn_indx, int32_t n_si
         pn_indx[j] = n_temp;
     }
 }
+
 
 
 

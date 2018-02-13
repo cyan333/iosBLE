@@ -13,7 +13,7 @@
 		91170D0720154EC20037295D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0520154EC20037295D /* Main.storyboard */; };
 		91170D0920154EC20037295D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0820154EC20037295D /* Assets.xcassets */; };
 		91170D0C20154EC20037295D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0A20154EC20037295D /* LaunchScreen.storyboard */; };
-		914C7D84202BA1E600FBC3AC /* ppgAlgorithm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */; };
+		915A663A203283770093F7CC /* dataToStandardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A6639203283770093F7CC /* dataToStandardType.swift */; };
 		916D964F2030FBC5004A2FD7 /* testcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 916D964D2030FBC5004A2FD7 /* testcpp.cpp */; };
 /* End PBXBuildFile section */
 
@@ -28,8 +28,7 @@
 		91170D0B20154EC20037295D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		91170D0D20154EC20037295D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		914C7D81202BA1E600FBC3AC /* iosBLE-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "iosBLE-Bridging-Header.h"; sourceTree = "<group>"; };
-		914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ppgAlgorithm.cpp; sourceTree = "<group>"; };
-		914C7D83202BA1E600FBC3AC /* ppgAlgorithm.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ppgAlgorithm.hpp; sourceTree = "<group>"; };
+		915A6639203283770093F7CC /* dataToStandardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataToStandardType.swift; sourceTree = "<group>"; };
 		916D964D2030FBC5004A2FD7 /* testcpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testcpp.cpp; sourceTree = "<group>"; };
 		916D964E2030FBC5004A2FD7 /* testcpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = testcpp.hpp; sourceTree = "<group>"; };
 		EB65BE6659B741D815CEFF72 /* Pods-iosBLE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosBLE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,19 +84,34 @@
 		91170D0020154EC20037295D /* iosBLE */ = {
 			isa = PBXGroup;
 			children = (
+				915A6638203283450093F7CC /* helper */,
+				915A66372032830C0093F7CC /* cppFile */,
 				91170D0120154EC20037295D /* AppDelegate.swift */,
 				91170D0320154EC20037295D /* ViewController.swift */,
 				91170D0520154EC20037295D /* Main.storyboard */,
-				914C7D82202BA1E600FBC3AC /* ppgAlgorithm.cpp */,
-				916D964D2030FBC5004A2FD7 /* testcpp.cpp */,
-				916D964E2030FBC5004A2FD7 /* testcpp.hpp */,
-				914C7D83202BA1E600FBC3AC /* ppgAlgorithm.hpp */,
 				91170D0820154EC20037295D /* Assets.xcassets */,
 				91170D0A20154EC20037295D /* LaunchScreen.storyboard */,
 				91170D0D20154EC20037295D /* Info.plist */,
 				914C7D81202BA1E600FBC3AC /* iosBLE-Bridging-Header.h */,
 			);
 			path = iosBLE;
+			sourceTree = "<group>";
+		};
+		915A66372032830C0093F7CC /* cppFile */ = {
+			isa = PBXGroup;
+			children = (
+				916D964D2030FBC5004A2FD7 /* testcpp.cpp */,
+				916D964E2030FBC5004A2FD7 /* testcpp.hpp */,
+			);
+			path = cppFile;
+			sourceTree = "<group>";
+		};
+		915A6638203283450093F7CC /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				915A6639203283770093F7CC /* dataToStandardType.swift */,
+			);
+			path = helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -230,10 +244,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				914C7D84202BA1E600FBC3AC /* ppgAlgorithm.cpp in Sources */,
 				91170D0420154EC20037295D /* ViewController.swift in Sources */,
 				91170D0220154EC20037295D /* AppDelegate.swift in Sources */,
 				916D964F2030FBC5004A2FD7 /* testcpp.cpp in Sources */,
+				915A663A203283770093F7CC /* dataToStandardType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

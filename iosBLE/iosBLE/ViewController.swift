@@ -42,8 +42,8 @@ class ViewController: UIViewController,
     
     var currentState = CurrentState.Waiting
     
-    var ppgRedBuffer = [String]()
-    var ppgIrBuffer =  [String]()
+    var ppgRedBuffer = [Int32]()
+    var ppgIrBuffer =  [Int32]()
 //    var tempBuffer : [Int32] = [-3734,-3577,-3505,-3458,-3354,-3347,-4012,-4978,-5414,-5311,-5080,-4891,-4691,-4638,-4676,-4662,-4505,-4270,-4059,-3867,-3703,-3616,-3545,-3439,-3370,-3466,-4395,-5321,-5537,-5349,-5166,-5017,-3427,-3341,-3258,-3199,-3155,-3143,-3112,-3095,-3073,-3332,-3955,-4105,-3863,-3642,-3507,-3408,-3400,-3395,-3349,-3292,-3215,-3163,-3135,-3131,-3112,-3085,-3086,-3405,-4103,-4275,-4095,-3883,-3740,-3637,-3613,-3649,-3621,-3520,-3430,-3362,-3311,-3283,-3263,-3242,-3213,-3257,-3910,-4485,-4508,-4296,-4097,-3951,-3861,-3893,-3930,-3879,-3753,-3631,-3547,-3490,-3455,-3465,-3420,-3363,-3323,-3279,-3421,-4298]
 //
 //    var tempBufferR : [Int32] = [-16654,-16594,-16570,-16550,-16508,-16495,-16736,-17110,-17271,-17244,-17151,-17091,-17007,-16986,-17011,-17000,-16942,-16856,-16769,-16692,-16633,-16599,-16568,-16526,-16503,-16534,-16874,-17223,-17304,-17244,-17176,-17120,-17120,-17096,-17075,-17053,-17037,-17043,-17034,-17025,-17022,-17118,-17316,-17369,-17282,-17215,-17175,-17135,-17144,-17143,-17133,-17125,-17094,-17076,-17073,-17073,-17063,-17060,-17058,-17167,-17409,-17464,-17402,-17326,-17277,-17246,-17238,-17246,-17244,-17212,-17188,-17167,-17153,-17145,-17146,-17132,-17125,-17143,-17355,-17550,-17561,-17488,-17415,-17363,-17341,-17345,-17358,-17348,-17310,-17274,-17244,-17219,-17218,-17216,-17197,-17191,-17169,-17160,-17199,-17496]
@@ -274,6 +274,8 @@ class ViewController: UIViewController,
         let data = characteristic.value
         //var values = [UInt8](data!)
         let BLEValueString: String = String(data:data!, encoding: .utf8)!
+        let BLEInt32: Int32 = (data as! NSData).uint32
+        
         //var BLEValueDouble: Double = 0.0
         
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
@@ -324,7 +326,7 @@ class ViewController: UIViewController,
                     }
                     ppgRedBuffer.removeAll()
                 }
-                ppgRedBuffer.append(BLEValueString)
+                ppgRedBuffer.append(BLEInt32)
                 
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
             case .PPGIR:
@@ -335,7 +337,7 @@ class ViewController: UIViewController,
                     }
                     ppgIrBuffer.removeAll()
                 }
-                ppgIrBuffer.append(BLEValueString)
+                ppgIrBuffer.append(BLEInt32)
                 
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 3)
             case .HRB:

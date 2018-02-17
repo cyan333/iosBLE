@@ -16,6 +16,7 @@
 void maxim_heart_rate_and_oxygen_saturation(uint16_t *pun_ir_buffer, int32_t n_ir_buffer_length, uint16_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid,int32_t *pn_heart_rate, int8_t *pch_hr_valid)
 #else
 void maxim_heart_rate_and_oxygen_saturation(int32_t *pun_ir_buffer, int32_t n_ir_buffer_length, int32_t *pun_red_buffer, int32_t *pn_spo2, int8_t *pch_spo2_valid,int32_t *pn_heart_rate, int8_t *pch_hr_valid)
+
 #endif
 /**
  * \brief        Calculate the heart rate and SpO2 level
@@ -146,6 +147,7 @@ void maxim_heart_rate_and_oxygen_saturation(int32_t *pun_ir_buffer, int32_t n_ir
         n_spo2_calc= uch_spo2_table[n_ratio_average] ;
         *pn_spo2 = n_spo2_calc ;
         *pch_spo2_valid  = 1;//  float_SPO2 =  -45.060*n_ratio_average* n_ratio_average/10000 + 30.354 *n_ratio_average/100 + 94.845 ;  // for comparison with table
+        printf("ratio:  %d\n",n_ratio_average);
     }
     else{
         *pn_spo2 =  -999 ; // do not use SPO2 since signal an_ratio is out of range

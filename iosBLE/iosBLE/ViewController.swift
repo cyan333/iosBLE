@@ -355,19 +355,11 @@ class ViewController: UIViewController,
                         ppgRedBuffer.removeAll()
                         ppgIrBuffer.removeAll()
                     }
-//                    for element in ppgRedBuffer {
-//                        print("hi", element)
-//                    }
-                    
                 }
-                
-                
-                
                 updateGraph(YValueData: Double(BLEValueString)!, identifier: 2)
             case .PPGIR:
                 ppgIrBuffer.append(BLEInt32!)
                 if ppgIrBuffer.count == 150{
-//                    print("IR set to true")
                     irIsFull = true
                     if redIsFull {
                         for element in ppgIrBuffer {

@@ -15,6 +15,12 @@
 		91170D0C20154EC20037295D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91170D0A20154EC20037295D /* LaunchScreen.storyboard */; };
 		915A663A203283770093F7CC /* dataToStandardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915A6639203283770093F7CC /* dataToStandardType.swift */; };
 		916D964F2030FBC5004A2FD7 /* testcpp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 916D964D2030FBC5004A2FD7 /* testcpp.cpp */; };
+		AAEE15B420304A280041A09B /* HTTPSecurity.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15B320304A280041A09B /* HTTPSecurity.swift */; };
+		AAEE15B620304A2C0041A09B /* Operation.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15B520304A2C0041A09B /* Operation.swift */; };
+		AAEE15B820304A300041A09B /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15B720304A300041A09B /* Request.swift */; };
+		AAEE15BA20304A360041A09B /* StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15B920304A360041A09B /* StatusCode.swift */; };
+		AAEE15BC20304A390041A09B /* Upload.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15BB20304A390041A09B /* Upload.swift */; };
+		AAEE15C020304B090041A09B /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAEE15BF20304B090041A09B /* WebService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,12 @@
 		915A6639203283770093F7CC /* dataToStandardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataToStandardType.swift; sourceTree = "<group>"; };
 		916D964D2030FBC5004A2FD7 /* testcpp.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testcpp.cpp; sourceTree = "<group>"; };
 		916D964E2030FBC5004A2FD7 /* testcpp.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = testcpp.hpp; sourceTree = "<group>"; };
+		AAEE15B320304A280041A09B /* HTTPSecurity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HTTPSecurity.swift; path = iosBLE/webService/HTTPSecurity.swift; sourceTree = SOURCE_ROOT; };
+		AAEE15B520304A2C0041A09B /* Operation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Operation.swift; path = iosBLE/webService/Operation.swift; sourceTree = SOURCE_ROOT; };
+		AAEE15B720304A300041A09B /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Request.swift; path = iosBLE/webService/Request.swift; sourceTree = SOURCE_ROOT; };
+		AAEE15B920304A360041A09B /* StatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatusCode.swift; path = iosBLE/webService/StatusCode.swift; sourceTree = SOURCE_ROOT; };
+		AAEE15BB20304A390041A09B /* Upload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Upload.swift; path = iosBLE/webService/Upload.swift; sourceTree = SOURCE_ROOT; };
+		AAEE15BF20304B090041A09B /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		EB65BE6659B741D815CEFF72 /* Pods-iosBLE.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iosBLE.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iosBLE/Pods-iosBLE.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -84,6 +96,7 @@
 		91170D0020154EC20037295D /* iosBLE */ = {
 			isa = PBXGroup;
 			children = (
+				AAEE15B220304A1C0041A09B /* webService */,
 				915A6638203283450093F7CC /* helper */,
 				915A66372032830C0093F7CC /* cppFile */,
 				91170D0120154EC20037295D /* AppDelegate.swift */,
@@ -112,6 +125,19 @@
 				915A6639203283770093F7CC /* dataToStandardType.swift */,
 			);
 			path = helper;
+			sourceTree = "<group>";
+		};
+		AAEE15B220304A1C0041A09B /* webService */ = {
+			isa = PBXGroup;
+			children = (
+				AAEE15B320304A280041A09B /* HTTPSecurity.swift */,
+				AAEE15B520304A2C0041A09B /* Operation.swift */,
+				AAEE15B720304A300041A09B /* Request.swift */,
+				AAEE15B920304A360041A09B /* StatusCode.swift */,
+				AAEE15BB20304A390041A09B /* Upload.swift */,
+				AAEE15BF20304B090041A09B /* WebService.swift */,
+			);
+			path = webService;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -244,10 +270,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AAEE15BC20304A390041A09B /* Upload.swift in Sources */,
 				91170D0420154EC20037295D /* ViewController.swift in Sources */,
 				91170D0220154EC20037295D /* AppDelegate.swift in Sources */,
+				AAEE15BA20304A360041A09B /* StatusCode.swift in Sources */,
+				AAEE15B420304A280041A09B /* HTTPSecurity.swift in Sources */,
 				916D964F2030FBC5004A2FD7 /* testcpp.cpp in Sources */,
+				AAEE15B820304A300041A09B /* Request.swift in Sources */,
 				915A663A203283770093F7CC /* dataToStandardType.swift in Sources */,
+				AAEE15C020304B090041A09B /* WebService.swift in Sources */,
+				AAEE15B620304A2C0041A09B /* Operation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -126,7 +126,7 @@ class ViewController: UIViewController,
         //For ECG Data
         if identifier == 1 {
             //Limit data points in a graph
-            if lineChartEntry_ECG.count == 500 {
+            if lineChartEntry_ECG.count == 300 {
                 lineChartEntry_ECG.remove(at: 0)
                 lineChartEntry_ECG.append(value)
             }
@@ -152,7 +152,7 @@ class ViewController: UIViewController,
         }
         else if identifier == 2 || identifier == 3{
             if identifier == 2 {
-                if lineChartEntry_PPGRED.count == 20 {
+                if lineChartEntry_PPGRED.count == 100 {
                     lineChartEntry_PPGRED.remove(at: 0)
                     lineChartEntry_PPGRED.append(value)
                 }
@@ -161,7 +161,7 @@ class ViewController: UIViewController,
                 }
             }
             else if identifier == 3 {
-                if lineChartEntry_PPGIR.count == 20 {
+                if lineChartEntry_PPGIR.count == 150 {
                     lineChartEntry_PPGIR.remove(at: 0)
                     lineChartEntry_PPGIR.append(value)
                 }
@@ -249,6 +249,7 @@ class ViewController: UIViewController,
     
     //Get services
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
+        print("get service")
         peripheral.discoverServices(nil)
     }
     
@@ -260,6 +261,7 @@ class ViewController: UIViewController,
             let thisService = service as CBService
             print(service.uuid)
             if service.uuid == BEAN_SERVICE_UUID{
+                print("get Char")
                 peripheral.discoverCharacteristics(nil, for: thisService)
             }
         }
@@ -362,17 +364,17 @@ class ViewController: UIViewController,
                 if ppgIrBuffer.count == 150{
                     irIsFull = true
                     if redIsFull {
-                        for element in ppgIrBuffer {
-                            print("ir", element)
-                        }
-                        for element1 in ppgRedBuffer {
-                            print("red", element1)
-                        }
+//                        for element in ppgIrBuffer {
+//                            print("ir", element)
+//                        }
+//                        for element1 in ppgRedBuffer {
+//                            print("red", element1)
+//                        }
                         maxim_heart_rate_and_oxygen_saturation(&ppgIrBuffer, Int32(ppgIrBuffer.count), &ppgRedBuffer, &spo2Data, &spo2Valid, &heartrateData, &heartrateValid)
-//                        print("spo2 valid = ", spo2Valid)
-//                        print(spo2Data)
-//                        print("heartrate valid = ", heartrateValid)
-//                        print(heartrateData)
+                        print("spo2 valid = ", spo2Valid)
+                        print(spo2Data)
+                        print("heartrate valid = ", heartrateValid)
+                        print(heartrateData)
                         redIsFull = false
                         irIsFull = false
                         ppgRedBuffer.removeAll()
@@ -385,11 +387,11 @@ class ViewController: UIViewController,
                 }
                 
                 
-                updateGraph(YValueData: Double(BLEValueString)!, identifier: 3)
+//                updateGraph(YValueData: Double(BLEValueString)!, identifier: 3)
             case .HRB:
-                hrbTxt.text = BLEValueString
+                hrbTxt.text = String (heartrateData)
             case .OXG:
-                oxgTxt.text = BLEValueString
+                oxgTxt.text = String(Int(spo2Data))
             case .TEMP:
                 tempTxt.text = BLEValueString
             case .ECGHRB:

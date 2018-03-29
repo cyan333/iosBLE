@@ -9,10 +9,10 @@
 import Foundation
 
 open class WebService {
-    open class func sendData(ehr: Int, phr: Int, temp: Double, spo2: Int, ppgList: [[Int]],
-                             ecgList: [Int], completion: @escaping (_ error: String) -> Void) {
+    open class func sendData(ehr: Int, phr: Int, temp: Float, spo2: Int, ppgList: [[Int32]],
+                             ecgList: [Int32], completion: @escaping (_ error: String) -> Void) {
         do {
-            var params = ["ehr": ehr, "phr": phr, "temp": temp, "spo2": spo2, "ppg": ppgList, "ecg": ecgList]
+            let params = ["ehr": ehr, "phr": phr, "temp": temp, "spo2": spo2, "ppg": ppgList, "ecg": ecgList] as [String : Any]
             let opt = try HTTP.POST("http://wc.fmning.com/save_ppgecg", parameters: params)
             opt.start{ response in
                 if response.error != nil {

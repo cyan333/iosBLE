@@ -9,6 +9,7 @@
 import UIKit
 import Charts
 import CoreBluetooth
+import Alamofire
  
 
 class ViewController: UIViewController,
@@ -48,7 +49,7 @@ class ViewController: UIViewController,
 
     
     
-    var ppgbuffer : [[Int32]] = [[]];
+    var ppgbuffer : [[Int32]] = [];
 
     var spo2Data: Int32 = 0
     var spo2Valid: Int8 = 0
@@ -88,32 +89,10 @@ class ViewController: UIViewController,
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        var a: Float = 25
-//        a += 0.00
 
-//        WebService.sendData(ehr: 20, phr: 34, temp: 25.8, spo2: 88, ppgList: self.ppgbbb, ecgList: self.tempBufferR) { (error) in
-//        print(error);
-//        }
-        _ = Timer.scheduledTimer(timeInterval: 15.0, target: self, selector: #selector(sayHello), userInfo: nil, repeats: true)
-        
         
     }
-    
-    @objc func sayHello()
-    {
-        let tempBufferR : [Int32] = [120724 ,120745 ,120762 ,120766 ,120785 ,120798 ,120811 ,120830 ,120841 ,120838 ,120860 ,120874 ,120791 ,120708 ,120721 ,120746 ,120732 ,120742 ,120765 ,120763 ,120791 ,120808 ,120818 ,120836 ,120828 ,120814 ,120820 ,120840 ,120885 ,120920 ,120925 ,120942 ,120942 ,120906 ,120787 ,120759 ,120776 ,120781 ,120768 ,120781 ,120788 ,120803 ,120793 ,120803 ,120793 ,120791 ,120822 ,120823 ,120834 ,120842 ,120858 ,120859 ,120858 ,120876 ,120895 ,120865 ,120752 ,120706 ,120733 ,120737 ,120731 ,120738 ,120738 ,120694 ,120694 ,120726 ,120724 ,120757 ,120776 ,120785 ,120788 ,120805 ,120807 ,120825 ,120843 ,120853 ,120772 ,120661 ,120675 ,120702 ,120703 ,120718 ,120724 ,120739 ,120759 ,120754 ,120775 ,120791 ,120779 ,120772 ,120791 ,120809 ,120835 ,120873 ,120862 ,120785 ,120708 ,120711 ,120711 ,120706 ,120727 ,120737 ,120729 ,120747 ,120760 ,120789 ,120804 ,120821 ,120826 ,120829 ,120856 ,120856 ,120787 ,120731 ,120754 ,120762 ,120748 ,120741]
-        
-        let ppgbbb: [[Int32]] = [[120724,140282],[120724,140282]]
-            print("start sending======================================")
-            WebService.sendData(ehr: 20, phr: 34, temp: 25.8, spo2: 88, ppgList: ppgbbb, ecgList: tempBufferR) { (error) in
-                if error == "" {
-                    print("send to database======================================")
-                }
-                else {
-                    print(error);
-                }
-            }
-    }
+   
     
     //identifier = 1: ECG; =2: PPG
     func updateGraph(YValueData: Double, identifier: Int){
@@ -299,9 +278,9 @@ class ViewController: UIViewController,
 //            }!
         //var BLEValueDouble: Double = 0.0
         
-        print("111111111111")
+        
         if characteristic.uuid == BEAN_CHARACTERISTIC_UUID {
-            
+            print(BLEValueString)
 //            print(BLEInt32)
             if BLEValueString.hasPrefix("ECG"){
                 currentState = .ECG
@@ -404,7 +383,7 @@ class ViewController: UIViewController,
                 tempTxt.text = BLEValueString
 
                 //if first array is empty, remove all, continute
-                if (ecgBuffer.count == 0){
+                if (ecgBuffer.count != 500){
                     ecgBuffer.removeAll()
                     ppgIrBuffer.removeAll()
                     ppgRedBuffer.removeAll()
@@ -417,27 +396,37 @@ class ViewController: UIViewController,
                     tempBuffer.append(ppgRedBuffer[i])
                     tempBuffer.append(ppgIrBuffer[i])
                     ppgbuffer.append(tempBuffer)
+                    print("loading index" + String(i))
                 }
 
                 if(sendingData == false){
                     sendingData = true
-                    _ = ppgbuffer;
-                    _ = ecgBuffer
-                    var temperature = Float(BLEValueString)!
-                    temperature += 0.01
+                    let ppgbufferbackup = ppgbuffer;
+                    let ecgbufferbackup = ecgBuffer
+                    let temperature = Float(BLEValueString)!
                     let ECGhr = Int(ECG_heartrate)
-                    _ = Int(heartrateData)
-                    _ = Int(spo2Data)
+                    let hrdata = Int(heartrateData)
+                    let sp = Int(spo2Data)
 
-//                    DispatchQueue.main.async {
-//                        WebService.sendData(ehr: 20, phr: 34, temp: 25.8, spo2: 88, ppgList: self.ppgbbb, ecgList: self.tempBufferR) { (error) in
-//                            print(error);
-//                            self.sendingData = false
-//                            self.ecgBuffer.removeAll()
-//                            self.ppgIrBuffer.removeAll()
-//                            self.ppgRedBuffer.removeAll()
-//                        }
-//                    }
+                    
+                    var request = URLRequest(url: URL(string: "http://wc.fmning.com/save_ppgecg")!)
+                    request.httpMethod = HTTPMethod.post.rawValue
+                    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+                    
+                    let json: [String: Any] = ["ehr": ECGhr, "phr": hrdata, "temp": temperature, "spo2": sp, "ppg": ppgbufferbackup, "ecg": ecgbufferbackup] as [String : Any]
+                    
+                    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+                    
+                    request.httpBody = jsonData
+                    
+                    Alamofire.request(request).responseJSON { (response) in
+                        self.sendingData = false
+                        self.ecgBuffer.removeAll()
+                        self.ppgIrBuffer.removeAll()
+                        self.ppgRedBuffer.removeAll()
+                        print(response)
+                        print("send to database======================================")
+                    }
                 }
 
 
